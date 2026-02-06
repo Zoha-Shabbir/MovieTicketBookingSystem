@@ -1,0 +1,147 @@
+﻿@model MovieBooking.Models.Booking
+
+@{
+    ViewData["Title"] = "Booking Confirmation - Movie Haven";
+    Layout = "_Layout";
+}
+<style>
+    .confirmation-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .confirmation-card {
+        background-color: #1a1a1a;
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        border-top: 5px solid red;
+    }
+
+    .confirmation-icon {
+        font-size: 4rem;
+        color: #28a745;
+        margin-bottom: 15px;
+    }
+
+    .movie-poster-confirm {
+        width: 100%;
+        height: 350px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: #28a745;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        color: #e50914;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .text-light {
+        color: #b0b0b0 !important;
+    }
+
+    .mb-3 {
+        color: white;
+        padding: 10px 0;
+        border-bottom: 1px solid #333;
+    }
+
+        .mb-3 strong {
+            color: white;
+            min-width: 150px;
+            display: inline-block;
+        }
+
+    .btn-danger {
+        background-color: #e50914;
+        border: none;
+        padding: 12px 20px;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #b8070f;
+            transform: translateY(-2px);
+        }
+
+    .btn-outline-light {
+        border: 2px solid white;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .confirmation-card {
+            padding: 25px;
+        }
+
+        .movie-poster-confirm {
+            height: 250px;
+        }
+    }
+</style>
+
+<body>
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="text-center mb-4">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Booking Confirmed!</h2>
+                <p class="text-light">Thank you for your booking. Here are your details:</p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <img src="@Url.Content("~/images/" + Model.Movie.PosterUrl)"
+                         alt="@Model.Movie.Title"
+                         class="movie-poster-confirm">
+                </div>
+                <div class="col-md-8">
+                    <h3 class="mb-4">@Model.Movie.Title</h3>
+                    <div class="mb-3">
+                        <strong>Show Date:</strong> @Model.ShowDate.ToString("dddd, MMMM dd, yyyy")
+                    </div>
+                    <div class="mb-3">
+                        <strong>Tickets:</strong> @Model.TicketsCount
+                    </div>
+                    <div class="mb-3">
+                        <strong>Price per Ticket:</strong> $@Model.Movie.Price
+                    </div>
+                    <div class="mb-3">
+                        <strong>Total Price:</strong> $@Model.TotalPrice
+                    </div>
+
+
+                    <div class="d-grid gap-2 mt-4">
+                        <a href="@Url.Action("List", "Booking")" class="btn btn-danger">
+                            <i class="fas fa-list me-1"></i> View My Bookings
+                        </a>
+                        <a href="@Url.Action("Index", "Booking")" class="btn btn-outline-light">
+                            <i class="fas fa-home me-1"></i> Back to Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

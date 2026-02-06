@@ -1,0 +1,250 @@
+﻿@{
+    ViewData["Title"] = "Book Movie - Movie Haven";
+    Layout = "_Layout";
+
+    var movie = ViewBag.Movie;
+}
+
+<style>
+   
+    .movie-card-section {
+        background-color: #1a1a1a;
+        border-radius: 15px;
+        padding: 25px;
+        border-left: 5px solid #e50914;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .booking-form-section {
+        background-color: #1a1a1a;
+        border-radius: 15px;
+        padding: 25px;
+        border-left: 5px solid #e50914;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .movie-poster {
+        width: 100%;
+        height: 300px;
+        object-fit: contain;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .movie-title {
+        color: #e50914;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .movie-info {
+        color: white;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+        .movie-info i {
+            color: #e50914;
+            margin-right: 10px;
+            width: 20px;
+        }
+
+    .movie-price {
+        color: #e50914;
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin: 15px 0;
+    }
+
+    .movie-description {
+        color: #b0b0b0;
+        line-height: 1.6;
+        margin-top: 15px;
+    }
+
+    .form-label {
+        color: #ffffff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: #0f0f0f;
+        border: 2px solid #333;
+        color: #ffffff;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .form-select {
+        background-color: #0f0f0f;
+        border: 2px solid #333;
+        color: #ffffff;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+        .form-control:focus {
+            background-color: #0f0f0f;
+            border-color: #e50914;
+            color: #ffffff;
+            box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+        }
+
+    .btn-warning {
+        background-color: #e50914;
+        border: none;
+        color: white;
+        padding: 15px 30px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        width: 100%;
+        font-size: 1.1rem;
+        margin-top: 10px;
+    }
+
+        .btn-warning:hover {
+            background-color: #b8070f;
+            transform: translateY(-2px);
+        }
+
+    .btn-outline-light {
+        border: 2px solid white;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 20px;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+    .price-summary {
+        background-color: #2a1a1a;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid #e50914;
+        margin: 20px 0;
+    }
+
+    .total-price {
+        color: #e50914;
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .movie-poster {
+            height: 300px !important;
+
+        }
+
+        .movie-title {
+            font-size: 1.6rem;
+        }
+
+        .booking-container {
+            padding: 15px;
+        }
+    }
+</style>
+
+<body>
+   
+    <div class="container booking-container">
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="poster-fixed">
+                        <img src="~/images/@movie.PosterUrl" alt="@movie.Title" class="movie-poster">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title mb-3">@movie.Title</h2>
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-secondary">@movie.Genre</span>
+                        </div>
+                        <div class="price-display mb-4">
+                            Price: $@movie.Price
+                        </div>
+                        <div class="tickets-available">
+                            Tickets Available: @movie.TicketsAvailable
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="card bg-dark border-secondary h-100">
+                    <div class="card-header bg-secondary">
+                        <h3 class="mb-0"><i class="fas fa-ticket-alt me-2"></i>Book Your Tickets</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["Error"]
+                            </div>
+                        }
+                        <form method="post">
+                            <input type="hidden" name="movieId" value="@movie.MovieId" />
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Show Date</label>
+                                    <input type="date" class="form-control" name="showDate" required min="@DateTime.Today.ToString("yyyy-MM-dd")">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Number of Tickets</label>
+                                    <select class="form-select" name="ticketsCount" required>
+                                        @for (int i = 1; i <= Math.Min(50, movie.TicketsAvailable); i++)
+                                        {
+                                            <option value="@i">@i Ticket@(i > 1 ? "s" : "")</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        Total price will be calculated based on the number of tickets selected.
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-danger btn-lg w-100 py-3">
+                                        <i class="fas fa-check-circle me-2"></i>Confirm Booking
+
+                                    </button>
+                                    <br>
+                                    <br />
+                                    <a href="@Url.Action("Index", "Booking")" class="btn btn-outline-light btn-lg w-100 py-3">
+                                        <i class="fas fa-check-circle me-2"></i> Back to Home
+                                    </a>
+                                </div>
+                               
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

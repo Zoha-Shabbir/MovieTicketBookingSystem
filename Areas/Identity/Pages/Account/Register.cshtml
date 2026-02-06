@@ -1,0 +1,265 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+<style>
+    ﻿body {
+        background-color: #0f0f0f;
+        color: white;
+    }
+
+    .card {
+        background-color: #1a1a1a;
+        border: none;
+        border-radius: 10px;
+        border-left: 4px solid #e50914;
+        height: 100%;
+        max-width: 500px;
+    }
+
+     .img-fluid.h-100 {
+        object-fit: cover; 
+    } 
+    .card-body {
+        padding: 30px;
+    }
+
+    h2 {
+        color: white;
+        font-weight: bold;
+    }
+
+
+    .form-label {
+        color: #ffffff;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        background-color: #0f0f0f;
+        border: 2px solid #333;
+        color: #ffffff;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            background-color: #0f0f0f;
+            border-color: #e50914;
+            color: #ffffff;
+            box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+        }
+
+        .form-control::placeholder {
+            color: #666;
+        }
+   
+    .form-floating{
+        background-color:#0f0f0f;
+    }
+    .btn-primary {
+        background-color: #e50914;
+        border: none;
+        padding: 12px;
+        font-weight: bold;
+    }
+
+        .btn-primary:hover {
+            background-color: #b8070f;
+        }
+
+    .text-danger {
+        color: #e50914 !important;
+    }
+
+    
+    .account-type-container {
+        margin-bottom: 1rem;
+    }
+
+    .account-type-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: white;
+        font-size: 1rem;
+    }
+
+    .account-type-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .account-type-btn {
+        flex: 1;
+        padding: 12px;
+        background-color: #333;
+        border: 1px solid #555;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.3s;
+    }
+
+        .account-type-btn:hover {
+            background-color: #444;
+        }
+
+        .account-type-btn.active {
+            background-color: #e50914;
+            border-color: #e50914;
+            font-weight: bold;
+        }
+
+    .hidden-input {
+        display: none;
+    }
+
+    .name-row {
+        display: flex;
+        gap: 15px;
+    }
+
+        .name-row .form-floating {
+            flex: 1;
+        }
+
+    .row.justify-content-center.align-items-center {
+        min-height: 90vh;
+        align-items: stretch !important;
+    }
+
+    .col-md-5.d-none.d-md-block {
+        display: flex !important;
+        padding: 0;
+        margin-right:50px;
+    }
+
+    .img-fluid.rounded {
+        
+        object-fit: contain;
+        border-radius: 10px 10px 10px 10px; 
+        border-right: 4px solid #e50914;
+        
+    }
+
+    .card.h-100 {
+        min-height: 600px;
+    }
+       
+</style>
+
+    <div class="row justify-content-center align-items-center ">
+    <div class="col-md-5 d-none d-md-flex align-items-center p-0">
+        <img src="~/images/popcorn.jpg" class="img-fluid h-100 w-auto" alt="Register Banner"
+             style="object-fit: cover; border-radius: 10px 10px 10px 10px;" />
+    </div>
+
+    <div class="col-md-5 d-flex align-items-center">
+        <div class="card w-100" style="min-height: 500px;">
+                <div class="card-body">
+                    <h2 class="text-center mb-4">Create a new account</h2>
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Input.FirstName" class="form-label">First Name</label>
+                            <input asp-for="Input.FirstName" class="form-control"
+                                   autocomplete="firstname" aria-required="true"
+                                   placeholder="first name">
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Input.LastName" class="form-label">Last Name</label>
+                            <input asp-for="Input.LastName" class="form-control"
+                                   autocomplete="lastname" aria-required="true"
+                                   placeholder="last name">
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Email" class="form-label">Email</label>
+                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                          
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.Password" class="form-label">Password</label>
+                            <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                   
+                        <div class="account-type-container">
+                            <div class="account-type-label">Account Type</div>
+                            <div class="account-type-buttons">
+                                <button type="button" class="account-type-btn active" data-type="User">User</button>
+                                <button type="button" class="account-type-btn" data-type="Admin">Admin</button>
+                            </div>
+                           
+                            <input asp-for="Input.UserType" id="UserTypeInput" class="hidden-input" value="User" />
+                            <span asp-validation-for="Input.UserType" class="text-danger"></span>
+                        </div>
+
+                        <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+                        <div class="text-center mt-3">
+                            <p class="text-white mb-0">
+                                Already have an account?
+                                <a href="/Identity/Account/Login" class="text-decoration-none" style="color: #e50914;">
+                                    Sign in
+                                </a>
+                            </p>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accountTypeButtons = document.querySelectorAll('.account-type-btn');
+            const userTypeInput = document.getElementById('UserTypeInput');
+
+            userTypeInput.value = 'User';
+
+            accountTypeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+            
+                    accountTypeButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+
+                 
+                    this.classList.add('active');
+
+                    
+                    const selectedType = this.getAttribute('data-type');
+                    userTypeInput.value = selectedType;
+
+                  
+                    userTypeInput.dispatchEvent(new Event('change'));
+                });
+            });
+        });
+    </script>
+}

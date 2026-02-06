@@ -1,0 +1,119 @@
+
+:root {
+    --dark-bg: #121212;
+    --card-bg: #1e1e1e;
+    --accent: #e50914;
+    --text-light: #b3b3b3;
+    --text-white: #ffffff;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-white);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 1px solid #333;
+}
+
+.nav-link {
+    color: var(--text-white) !important;
+    margin-left: 15px;
+}
+
+    .nav-link:hover {
+        color: var(--accent) !important;
+    }
+
+.movie-card {
+    background-color: var(--card-bg);
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    margin-bottom: 25px;
+}
+
+    .movie-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+.movie-poster {
+    height: 380px;
+    object-fit: cover;
+}
+
+.movie-title {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.movie-genre {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.price {
+    color: var(--accent);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+    .logo span {
+        color: var(--accent);
+    }
+
+.search-section {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.search-box {
+    position: relative;
+}
+
+.suggestions-box {
+    position: absolute;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--card-bg);
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #333;
+}
+
+    .suggestion-item:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+.no-results {
+    padding: 10px 15px;
+    color: var(--text-light);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+footer {
+    background-color: #000;
+    padding: 40px 0 20px;
+    border-top: 1px solid #333;
+    margin-top: auto; 
+}

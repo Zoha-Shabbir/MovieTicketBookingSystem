@@ -1,0 +1,217 @@
+﻿@model IEnumerable<MovieBooking.Models.Movie>
+@{
+    ViewData["Title"] = "Movie Haven - Home";
+    Layout = "_Layout"; 
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: black;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            color: #202323;
+            font-weight: bold;
+        }
+
+        .navbar-brand {
+            color: white;
+            font-size: 44px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+        }
+
+            .nav-link:hover {
+                background-color: #202323;
+                color: #2c3e50;
+            }
+
+        .search-box {
+            background-color: #202323;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .movie-card {
+            background: #202323;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid black;
+        }
+
+
+        .movie-title {
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .movie-price {
+            color: #a72828;
+            font-weight: bold;
+        }
+
+        .movie-category {
+            color: darkgrey;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            color: white;
+            margin: 20px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid black;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="hero-section text-center mb-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold text-white mb-3">Welcome to Movie Haven </h1>
+                    <p class="lead text-light mb-4">Your ultimate destination for the best movie experience. Book tickets for the latest blockbusters in just a few clicks!</p>
+                   
+    
+                </div>
+                <div class="col-lg-6">
+                    <img src="~/images/popcorn.jpg" alt="Cinema Experience" class="img-fluid rounded-3 shadow-lg" style="max-height: 700px; width: 50%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+        </div>
+    <section class="search-section py-4">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="search-box">
+                        <form id="movieSearchForm">
+                            <div class="input-group">
+                                <input type="text" id="movieSearchInput" class="form-control form-control-lg"
+                                       placeholder="Search movies by title, genre..." autocomplete="off">
+                                <button class="btn btn-danger" type="button">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                        <div id="searchSuggestions" class="suggestions-box"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <h2 class="mb-4 text-white">🎬 Book Movie Tickets</h2>
+            <div class="row" id="nowShowingMovies">
+                @foreach (var movie in Model)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <a href="@Url.Action("ToBook", "Booking", new { id = movie.MovieId })" class="text-decoration-none">
+                            <div class="movie-card">
+                                    <img src="~/images/@movie.PosterUrl" class="img-fluid movie-poster w-100" style="width: 50px ; height: 50px object-fit:contain border-radius:8px border:1px solid;" alt="Movie Poster">
+                                <div class="p-3">
+                                    <h5 class="movie-title">@movie.Title</h5>
+                                    <div class="price mb-2">
+                                        <i class="fas fa-tag"></i>
+                                            <span class="ms-1" id="price-@movie.MovieId">$@movie.Price</span>
+                                    </div>
+                                    <p class="movie-genre">@movie.Genre</p>
+                                        <p class="tickets-available" id="tickets-@movie.MovieId">
+                                            Tickets Available: @movie.TicketsAvailable
+                                        </p>
+                                        <a href="@Url.Action("ToBook", "Booking", new { id = movie.MovieId })"
+                                           class="btn btn-danger"
+                                           id="book-@movie.MovieId"
+                                           @(movie.TicketsAvailable <= 0 ? "disabled" : "")>
+                                            Book Now
+                                        </a>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div>
+                <h2 class="mb-4 text-white">🎬 Upcoming Movies</h2>
+                    @await Component.InvokeAsync("UpcomingMovies", new { count = 8 })
+            </div>
+               
+
+        </div>
+    </section>
+    <script src="~/js/movieHub.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const searchInput = document.getElementById('movieSearchInput');
+            const searchForm = document.getElementById('movieSearchForm');
+
+            // Input event (typing) ke liye
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                const allMovies = document.querySelectorAll('#nowShowingMovies .movie-card');
+
+                allMovies.forEach(movie => {
+                    const parent = movie.closest('.col-lg-3');
+                    parent.style.display = 'block';
+                    parent.style.order = '0';
+                });
+
+                if (searchTerm === '') return;
+
+                allMovies.forEach(movie => {
+                    const parent = movie.closest('.col-lg-3');
+                    const title = movie.querySelector('.movie-title').textContent.toLowerCase();
+                    const genre = movie.querySelector('.movie-genre').textContent.toLowerCase();
+
+                    if (!title.includes(searchTerm) && !genre.includes(searchTerm)) {
+                        parent.style.display = 'none';
+                    }
+                });
+            });
+
+            // Button click (form submit) ke liye
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // page reload rokega
+                searchInput.dispatchEvent(new Event('input')); // input event trigger karega
+            });
+        });
+    </script>
+</body>
+</html>

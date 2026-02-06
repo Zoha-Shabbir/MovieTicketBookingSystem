@@ -1,0 +1,75 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+<header>
+    <style>
+        .navbar {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid #e50914;
+            padding: 12px 0;
+        }
+
+        .logo {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+                color: #e50914;
+                font-weight:800;
+            }
+
+        .nav-link {
+            color: #b0b0b0 !important;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+            .nav-link:hover {
+                color: #ffffff;
+                color: lightgray !important;
+            }
+
+            .nav-link.btn {
+                color:white;
+                background: none;
+
+            }
+        .navbar-nav{
+            color:ghostwhite;
+            font-weight:bold;
+           
+        }
+       
+        .logo
+
+        {
+            font-size: 28px;
+            font-weight:bolder;
+        }
+
+        .nav-link {
+            padding: 6px 12px;
+        }
+
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="logo">MOVIE<span>HAVEN</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+               
+                <ul class="navbar-nav ms-auto">
+                    <partial name="_LoginPartial" />
+                </ul>
+            </div>
+        </div>
+    </nav>
+   
+</header>

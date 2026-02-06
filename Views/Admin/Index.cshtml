@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .page-title {
+        color: #e50914;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+    }
+
+    .admin-options {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        padding: 30px;
+        border-left: 4px solid #e50914;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .list-group-item {
+        background-color: #0f0f0f;
+        border: 2px solid #333;
+        color: white;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: block;
+    }
+
+        .list-group-item:hover {
+            background-color: #252525;
+            border-color: #e50914;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+            text-decoration: none;
+            color: white;
+        }
+
+        .list-group-item i {
+            font-size: 20px;
+            width: 30px;
+        }
+
+    .text-success {
+        color: #28a745 !important;
+    }
+
+    .text-warning {
+        color: #ffc107 !important;
+    }
+
+    .text-danger {
+        color: #e50914 !important;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .text-info {
+        color: #17a2b8 !important;
+    }
+
+    .btn-outline-light {
+        border: 2px solid white;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .admin-options {
+            padding: 20px;
+        }
+
+        .list-group-item {
+            padding: 15px;
+            font-size: 14px;
+        }
+
+            .list-group-item i {
+                font-size: 18px;
+                width: 25px;
+            }
+    }
+</style>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container mt-4">
+    <h3 class="text-danger mb-4"><i class="fas fa-user-cog"></i> Admin Options</h3>
+
+    <div class="list-group">
+        <a href="/Admin/AddMovie" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fas fa-plus-circle text-success me-2"></i> Add a Movie
+        </a>
+
+        <a href="/Admin/AllMovies" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fas fa-edit text-warning me-2"></i> Edit a Movie
+        </a>
+
+        <a href="/Admin/AllMovies" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fas fa-trash-alt text-danger me-2"></i> Delete a Movie
+        </a>
+
+        <a href="/Admin/AllMovies" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fas fa-film text-primary me-2"></i> Show All Movies
+        </a>
+
+        <a href="/Admin/AllBookings" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fas fa-ticket-alt text-info me-2"></i> Show All Bookings
+        </a>
+    </div>
+    <a href="@Url.Action("Index", "Booking")" class="btn btn-outline-danger btn-lg w-100 py-3">
+        <i class="fas fa-check-circle me-2"></i> Back to Home
+    </a>
+</div>
+
+

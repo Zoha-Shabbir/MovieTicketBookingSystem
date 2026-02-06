@@ -1,0 +1,160 @@
+﻿@model MovieBooking.Models.Movie
+@{
+    ViewData["Title"] = "Delete Movie";
+    Layout = "_AdminLayout";
+}
+
+<style>
+    .page-title {
+        color: #e50914;
+        font-size: 2.2rem;
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+    }
+
+    .form-container {
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        padding: 30px;
+        border-left: 4px solid #e50914;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .delete-warning {
+        background-color: #2a1a1a;
+        border: 2px solid #5a2a2a;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    .warning-icon {
+        font-size: 48px;
+        color: #e50914;
+        margin-bottom: 15px;
+    }
+
+    .warning-text {
+        color: #ff6b6b;
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .form-label {
+        color: #ffffff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .form-control {
+        background-color: #0f0f0f;
+        border: 2px solid #333;
+        color: #ffffff;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+        .form-control:focus {
+            background-color: #0f0f0f;
+            border-color: #e50914;
+            color: #ffffff;
+            box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+        }
+
+    .btn-danger {
+        background-color: #e50914;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-danger:hover {
+            background-color: #b8070f;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        color: white;
+        padding: 12px 30px;
+        font-weight: bold;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+    .btn-outline-light {
+        border: 2px solid white;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-light:hover {
+            background-color: #6c757d;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .movie-title-display {
+        font-size: 18px;
+        font-weight: bold;
+        color: #e50914;
+        text-align: center;
+        padding: 10px;
+        background-color: #2a1a1a;
+        border-radius: 4px;
+        margin: 10px 0;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-title {
+            font-size: 1.8rem;
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        .btn-danger,
+        .btn-secondary {
+            padding: 10px 20px;
+        }
+    }
+</style>
+
+
+<div class="container mt-4">
+    <h3 class="text-danger mb-4"><i class="fas fa-trash-alt"></i> Delete Movie </h3>
+
+    <form asp-action="DeleteMovieConfirmed" method="post">
+        <input type="hidden" asp-for="MovieId" />
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label text-light"></label>
+            <input asp-for="Title" class="form-control bg-dark text-light" readonly />
+        </div>
+
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Confirm Delete
+        </button>
+        <a href="/Admin/AllMovies" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Cancel
+        </a>
+    </form>
+</div>
